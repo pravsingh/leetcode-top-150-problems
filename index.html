@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeetCode Top 150 Java Solutions</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .search-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        .problems-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .problems-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .problems-table th {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .problems-table th:first-child {
+            width: 80px;
+        }
+
+        .problems-table th:last-child {
+            width: 200px;
+        }
+
+        .problems-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background-color 0.2s ease;
+        }
+
+        .problems-table tr:hover {
+            background-color: #f8f9ff;
+        }
+
+        .problem-number {
+            font-weight: bold;
+            color: #667eea;
+            text-align: center;
+        }
+
+        .problem-title {
+            color: #2c3e50;
+            font-weight: 500;
+        }
+
+        .solution-link {
+            color: #667eea;
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            background: rgba(102, 126, 234, 0.1);
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .solution-link:hover {
+            background: rgba(102, 126, 234, 0.2);
+            transform: translateY(-1px);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .problems-table {
+                font-size: 0.9rem;
+            }
+            
+            .problems-table th,
+            .problems-table td {
+                padding: 8px 10px;
+            }
+            
+            .stats {
+                flex-direction: column;
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>LeetCode Top 150 Java Solutions</h1>
+            <p>This repository contains Java solutions for the top 150 most popular LeetCode problems. Each problem includes a detailed docstring with the solution approach, time and space complexity, alternative approaches, and key insights.</p>
+        </div>
+
+        <div class="search-container">
+            <input type="text" id="searchBox" class="search-box" placeholder="Search problems by title or number...">
+            <div class="stats">
+                <span id="totalProblems">Total Problems: 0</span>
+                <span id="visibleProblems">Visible Problems: 0</span>
+            </div>
+        </div>
+
+        <div class="problems-container">
+            <table class="problems-table" id="problemsTable">
+                <thead>
+<tr>
+<th>Seq</th>
+<th>#</th>
+<th>Title</th>
+<th>Solution</th>
+</tr>
+</thead>
+                <tbody id="problemsTableBody">
+<tr>
+    <td class="seq-number">1</td>
+    <td class="problem-number">1</td>
+    <td class="problem-title">Two Sum</td>
+    <td><a href="TwoSum.java" target="_blank">TwoSum.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">2</td>
+    <td class="problem-number">2</td>
+    <td class="problem-title">Add Two Numbers</td>
+    <td><a href="AddTwoNumbers.java" target="_blank">AddTwoNumbers.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">3</td>
+    <td class="problem-number">3</td>
+    <td class="problem-title">Longest Substring Without Repeating Characters</td>
+    <td><a href="LongestSubstringWithoutRepeatingCharacters.java" target="_blank">LongestSubstringWithoutRepeatingCharacters.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">4</td>
+    <td class="problem-number">4</td>
+    <td class="problem-title">Median Of Two Sorted Arrays</td>
+    <td><a href="MedianOfTwoSortedArrays.java" target="_blank">MedianOfTwoSortedArrays.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">5</td>
+    <td class="problem-number">5</td>
+    <td class="problem-title">Longest Palindromic Substring</td>
+    <td><a href="LongestPalindromicSubstring.java" target="_blank">LongestPalindromicSubstring.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">6</td>
+    <td class="problem-number">11</td>
+    <td class="problem-title">Container With Most Water</td>
+    <td><a href="ContainerWithMostWater.java" target="_blank">ContainerWithMostWater.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">7</td>
+    <td class="problem-number">12</td>
+    <td class="problem-title">Integer To Roman</td>
+    <td><a href="IntegerToRoman.java" target="_blank">IntegerToRoman.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">8</td>
+    <td class="problem-number">13</td>
+    <td class="problem-title">Roman To Integer</td>
+    <td><a href="RomanToInteger.java" target="_blank">RomanToInteger.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">9</td>
+    <td class="problem-number">14</td>
+    <td class="problem-title">Longest Common Prefix</td>
+    <td><a href="LongestCommonPrefix.java" target="_blank">LongestCommonPrefix.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">10</td>
+    <td class="problem-number">15</td>
+    <td class="problem-title">Three Sum</td>
+    <td><a href="ThreeSum.java" target="_blank">ThreeSum.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">11</td>
+    <td class="problem-number">16</td>
+    <td class="problem-title">Three Sum Closest</td>
+    <td><a href="ThreeSumClosest.java" target="_blank">ThreeSumClosest.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">12</td>
+    <td class="problem-number">17</td>
+    <td class="problem-title">Letter Combinations Of APhone Number</td>
+    <td><a href="LetterCombinationsOfAPhoneNumber.java" target="_blank">LetterCombinationsOfAPhoneNumber.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">13</td>
+    <td class="problem-number">18</td>
+    <td class="problem-title">Four Sum</td>
+    <td><a href="FourSum.java" target="_blank">FourSum.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">14</td>
+    <td class="problem-number">19</td>
+    <td class="problem-title">Remove Nth Node From End Of List</td>
+    <td><a href="RemoveNthNodeFromEndOfList.java" target="_blank">RemoveNthNodeFromEndOfList.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">15</td>
+    <td class="problem-number">20</td>
+    <td class="problem-title">Valid Parentheses</td>
+    <td><a href="ValidParentheses.java" target="_blank">ValidParentheses.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">16</td>
+    <td class="problem-number">21</td>
+    <td class="problem-title">Merge Two Sorted Lists</td>
+    <td><a href="MergeTwoSortedLists.java" target="_blank">MergeTwoSortedLists.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">17</td>
+    <td class="problem-number">22</td>
+    <td class="problem-title">Generate Parentheses</td>
+    <td><a href="GenerateParentheses.java" target="_blank">GenerateParentheses.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">18</td>
+    <td class="problem-number">23</td>
+    <td class="problem-title">Merge KSorted Lists</td>
+    <td><a href="MergeKSortedLists.java" target="_blank">MergeKSortedLists.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">19</td>
+    <td class="problem-number">24</td>
+    <td class="problem-title">Swap Nodes In Pairs</td>
+    <td><a href="SwapNodesInPairs.java" target="_blank">SwapNodesInPairs.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">20</td>
+    <td class="problem-number">25</td>
+    <td class="problem-title">Reverse Nodes In KGroup</td>
+    <td><a href="ReverseNodesInKGroup.java" target="_blank">ReverseNodesInKGroup.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">21</td>
+    <td class="problem-number">26</td>
+    <td class="problem-title">Remove Duplicates From Sorted Array</td>
+    <td><a href="RemoveDuplicatesFromSortedArray.java" target="_blank">RemoveDuplicatesFromSortedArray.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">22</td>
+    <td class="problem-number">27</td>
+    <td class="problem-title">Remove Element</td>
+    <td><a href="RemoveElement.java" target="_blank">RemoveElement.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">23</td>
+    <td class="problem-number">28</td>
+    <td class="problem-title">Find The Index Of The First Occurrence In AString</td>
+    <td><a href="FindTheIndexOfTheFirstOccurrenceInAString.java" target="_blank">FindTheIndexOfTheFirstOccurrenceInAString.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">24</td>
+    <td class="problem-number">29</td>
+    <td class="problem-title">Divide Two Integers</td>
+    <td><a href="DivideTwoIntegers.java" target="_blank">DivideTwoIntegers.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">25</td>
+    <td class="problem-number">30</td>
+    <td class="problem-title">Substring With Concatenation Of All Words</td>
+    <td><a href="SubstringWithConcatenationOfAllWords.java" target="_blank">SubstringWithConcatenationOfAllWords.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">26</td>
+    <td class="problem-number">31</td>
+    <td class="problem-title">Next Permutation</td>
+    <td><a href="NextPermutation.java" target="_blank">NextPermutation.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">27</td>
+    <td class="problem-number">32</td>
+    <td class="problem-title">Longest Valid Parentheses</td>
+    <td><a href="LongestValidParentheses.java" target="_blank">LongestValidParentheses.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">28</td>
+    <td class="problem-number">33</td>
+    <td class="problem-title">Search In Rotated Sorted Array</td>
+    <td><a href="SearchInRotatedSortedArray.java" target="_blank">SearchInRotatedSortedArray.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">29</td>
+    <td class="problem-number">34</td>
+    <td class="problem-title">Find First And Last Position Of Element In Sorted Array</td>
+    <td><a href="FindFirstAndLastPositionOfElementInSortedArray.java" target="_blank">FindFirstAndLastPositionOfElementInSortedArray.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">30</td>
+    <td class="problem-number">35</td>
+    <td class="problem-title">Search Insert Position</td>
+    <td><a href="SearchInsertPosition.java" target="_blank">SearchInsertPosition.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">31</td>
+    <td class="problem-number">36</td>
+    <td class="problem-title">Valid Sudoku</td>
+    <td><a href="ValidSudoku.java" target="_blank">ValidSudoku.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">32</td>
+    <td class="problem-number">37</td>
+    <td class="problem-title">Sudoku Solver</td>
+    <td><a href="SudokuSolver.java" target="_blank">SudokuSolver.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">33</td>
+    <td class="problem-number">38</td>
+    <td class="problem-title">Count And Say</td>
+    <td><a href="CountAndSay.java" target="_blank">CountAndSay.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">34</td>
+    <td class="problem-number">39</td>
+    <td class="problem-title">Combination Sum</td>
+    <td><a href="CombinationSum.java" target="_blank">CombinationSum.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">35</td>
+    <td class="problem-number">40</td>
+    <td class="problem-title">Combination Sum II</td>
+    <td><a href="CombinationSumII.java" target="_blank">CombinationSumII.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">36</td>
+    <td class="problem-number">41</td>
+    <td class="problem-title">First Missing Positive</td>
+    <td><a href="FirstMissingPositive.java" target="_blank">FirstMissingPositive.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">37</td>
+    <td class="problem-number">42</td>
+    <td class="problem-title">Trapping Rain Water</td>
+    <td><a href="TrappingRainWater.java" target="_blank">TrappingRainWater.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">38</td>
+    <td class="problem-number">43</td>
+    <td class="problem-title">Multiply Strings</td>
+    <td><a href="MultiplyStrings.java" target="_blank">MultiplyStrings.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">39</td>
+    <td class="problem-number">44</td>
+    <td class="problem-title">Wildcard Matching</td>
+    <td><a href="WildcardMatching.java" target="_blank">WildcardMatching.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">40</td>
+    <td class="problem-number">45</td>
+    <td class="problem-title">Jump Game II</td>
+    <td><a href="JumpGameII.java" target="_blank">JumpGameII.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">41</td>
+    <td class="problem-number">46</td>
+    <td class="problem-title">Permutations</td>
+    <td><a href="Permutations.java" target="_blank">Permutations.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">42</td>
+    <td class="problem-number">47</td>
+    <td class="problem-title">Permutations II</td>
+    <td><a href="PermutationsII.java" target="_blank">PermutationsII.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">43</td>
+    <td class="problem-number">48</td>
+    <td class="problem-title">Rotate Image</td>
+    <td><a href="RotateImage.java" target="_blank">RotateImage.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">44</td>
+    <td class="problem-number">49</td>
+    <td class="problem-title">Group Anagrams</td>
+    <td><a href="GroupAnagrams.java" target="_blank">GroupAnagrams.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">45</td>
+    <td class="problem-number">50</td>
+    <td class="problem-title">Pow XN</td>
+    <td><a href="PowXN.java" target="_blank">PowXN.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">46</td>
+    <td class="problem-number">51</td>
+    <td class="problem-title">NQueens</td>
+    <td><a href="NQueens.java" target="_blank">NQueens.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">47</td>
+    <td class="problem-number">53</td>
+    <td class="problem-title">Maximum Subarray</td>
+    <td><a href="MaximumSubarray.java" target="_blank">MaximumSubarray.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">48</td>
+    <td class="problem-number">54</td>
+    <td class="problem-title">Spiral Matrix</td>
+    <td><a href="SpiralMatrix.java" target="_blank">SpiralMatrix.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">49</td>
+    <td class="problem-number">55</td>
+    <td class="problem-title">Jump Game</td>
+    <td><a href="JumpGame.java" target="_blank">JumpGame.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">50</td>
+    <td class="problem-number">56</td>
+    <td class="problem-title">Merge Intervals</td>
+    <td><a href="MergeIntervals.java" target="_blank">MergeIntervals.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">51</td>
+    <td class="problem-number">57</td>
+    <td class="problem-title">Insert Interval</td>
+    <td><a href="InsertInterval.java" target="_blank">InsertInterval.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">52</td>
+    <td class="problem-number">59</td>
+    <td class="problem-title">Spiral Matrix II</td>
+    <td><a href="SpiralMatrixII.java" target="_blank">SpiralMatrixII.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">53</td>
+    <td class="problem-number">60</td>
+    <td class="problem-title">Permutation Sequence</td>
+    <td><a href="PermutationSequence.java" target="_blank">PermutationSequence.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">54</td>
+    <td class="problem-number">61</td>
+    <td class="problem-title">Rotate List</td>
+    <td><a href="RotateList.java" target="_blank">RotateList.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">55</td>
+    <td class="problem-number">62</td>
+    <td class="problem-title">Unique Paths</td>
+    <td><a href="UniquePaths.java" target="_blank">UniquePaths.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">56</td>
+    <td class="problem-number">63</td>
+    <td class="problem-title">Unique Paths II</td>
+    <td><a href="UniquePathsII.java" target="_blank">UniquePathsII.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">57</td>
+    <td class="problem-number">64</td>
+    <td class="problem-title">Minimum Path Sum</td>
+    <td><a href="MinimumPathSum.java" target="_blank">MinimumPathSum.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">58</td>
+    <td class="problem-number">65</td>
+    <td class="problem-title">Valid Number</td>
+    <td><a href="ValidNumber.java" target="_blank">ValidNumber.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">59</td>
+    <td class="problem-number">66</td>
+    <td class="problem-title">Plus One</td>
+    <td><a href="PlusOne.java" target="_blank">PlusOne.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">60</td>
+    <td class="problem-number">67</td>
+    <td class="problem-title">Add Binary</td>
+    <td><a href="AddBinary.java" target="_blank">AddBinary.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">61</td>
+    <td class="problem-number">68</td>
+    <td class="problem-title">Text Justification</td>
+    <td><a href="TextJustification.java" target="_blank">TextJustification.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">62</td>
+    <td class="problem-number">69</td>
+    <td class="problem-title">Sqrt X</td>
+    <td><a href="SqrtX.java" target="_blank">SqrtX.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">63</td>
+    <td class="problem-number">70</td>
+    <td class="problem-title">Climbing Stairs</td>
+    <td><a href="ClimbingStairs.java" target="_blank">ClimbingStairs.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">64</td>
+    <td class="problem-number">71</td>
+    <td class="problem-title">Simplify Path</td>
+    <td><a href="SimplifyPath.java" target="_blank">SimplifyPath.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">65</td>
+    <td class="problem-number">72</td>
+    <td class="problem-title">Edit Distance</td>
+    <td><a href="EditDistance.java" target="_blank">EditDistance.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">66</td>
+    <td class="problem-number">73</td>
+    <td class="problem-title">Set Matrix Zeroes</td>
+    <td><a href="SetMatrixZeroes.java" target="_blank">SetMatrixZeroes.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">67</td>
+    <td class="problem-number">74</td>
+    <td class="problem-title">Search A2DMatrix</td>
+    <td><a href="SearchA2DMatrix.java" target="_blank">SearchA2DMatrix.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">68</td>
+    <td class="problem-number">75</td>
+    <td class="problem-title">Sort Colors</td>
+    <td><a href="SortColors.java" target="_blank">SortColors.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">69</td>
+    <td class="problem-number">76</td>
+    <td class="problem-title">Minimum Window Substring</td>
+    <td><a href="MinimumWindowSubstring.java" target="_blank">MinimumWindowSubstring.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">70</td>
+    <td class="problem-number">77</td>
+    <td class="problem-title">Combinations</td>
+    <td><a href="Combinations.java" target="_blank">Combinations.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">71</td>
+    <td class="problem-number">78</td>
+    <td class="problem-title">Subsets</td>
+    <td><a href="Subsets.java" target="_blank">Subsets.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">72</td>
+    <td class="problem-number">79</td>
+    <td class="problem-title">Word Search</td>
+    <td><a href="WordSearch.java" target="_blank">WordSearch.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">73</td>
+    <td class="problem-number">80</td>
+    <td class="problem-title">Remove Duplicates From Sorted Array II</td>
+    <td><a href="RemoveDuplicatesFromSortedArrayII.java" target="_blank">RemoveDuplicatesFromSortedArrayII.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">74</td>
+    <td class="problem-number">81</td>
+    <td class="problem-title">Search In Rotated Sorted Array II</td>
+    <td><a href="SearchInRotatedSortedArrayII.java" target="_blank">SearchInRotatedSortedArrayII.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">75</td>
+    <td class="problem-number">82</td>
+    <td class="problem-title">Remove Duplicates From Sorted List II</td>
+    <td><a href="RemoveDuplicatesFromSortedListII.java" target="_blank">RemoveDuplicatesFromSortedListII.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">76</td>
+    <td class="problem-number">83</td>
+    <td class="problem-title">Remove Duplicates From Sorted List</td>
+    <td><a href="RemoveDuplicatesFromSortedList.java" target="_blank">RemoveDuplicatesFromSortedList.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">77</td>
+    <td class="problem-number">84</td>
+    <td class="problem-title">Largest Rectangle In Histogram</td>
+    <td><a href="LargestRectangleInHistogram.java" target="_blank">LargestRectangleInHistogram.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">78</td>
+    <td class="problem-number">85</td>
+    <td class="problem-title">Maximal Rectangle</td>
+    <td><a href="MaximalRectangle.java" target="_blank">MaximalRectangle.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">79</td>
+    <td class="problem-number">86</td>
+    <td class="problem-title">Partition List</td>
+    <td><a href="PartitionList.java" target="_blank">PartitionList.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">80</td>
+    <td class="problem-number">87</td>
+    <td class="problem-title">Scramble String</td>
+    <td><a href="ScrambleString.java" target="_blank">ScrambleString.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">81</td>
+    <td class="problem-number">88</td>
+    <td class="problem-title">Merge Sorted Array</td>
+    <td><a href="MergeSortedArray.java" target="_blank">MergeSortedArray.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">82</td>
+    <td class="problem-number">89</td>
+    <td class="problem-title">Gray Code</td>
+    <td><a href="GrayCode.java" target="_blank">GrayCode.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">83</td>
+    <td class="problem-number">90</td>
+    <td class="problem-title">Subsets II</td>
+    <td><a href="SubsetsII.java" target="_blank">SubsetsII.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">84</td>
+    <td class="problem-number">91</td>
+    <td class="problem-title">Decode Ways</td>
+    <td><a href="DecodeWays.java" target="_blank">DecodeWays.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">85</td>
+    <td class="problem-number">92</td>
+    <td class="problem-title">Reverse Linked List II</td>
+    <td><a href="ReverseLinkedListII.java" target="_blank">ReverseLinkedListII.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">86</td>
+    <td class="problem-number">93</td>
+    <td class="problem-title">Restore IPAddresses</td>
+    <td><a href="RestoreIPAddresses.java" target="_blank">RestoreIPAddresses.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">87</td>
+    <td class="problem-number">94</td>
+    <td class="problem-title">Binary Tree Inorder Traversal</td>
+    <td><a href="BinaryTreeInorderTraversal.java" target="_blank">BinaryTreeInorderTraversal.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">88</td>
+    <td class="problem-number">95</td>
+    <td class="problem-title">Unique Binary Search Trees II</td>
+    <td><a href="UniqueBinarySearchTreesII.java" target="_blank">UniqueBinarySearchTreesII.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">89</td>
+    <td class="problem-number">96</td>
+    <td class="problem-title">Unique Binary Search Trees</td>
+    <td><a href="UniqueBinarySearchTrees.java" target="_blank">UniqueBinarySearchTrees.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">90</td>
+    <td class="problem-number">97</td>
+    <td class="problem-title">Interleaving String</td>
+    <td><a href="InterleavingString.java" target="_blank">InterleavingString.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">91</td>
+    <td class="problem-number">98</td>
+    <td class="problem-title">Validate Binary Search Tree</td>
+    <td><a href="ValidateBinarySearchTree.java" target="_blank">ValidateBinarySearchTree.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">92</td>
+    <td class="problem-number">99</td>
+    <td class="problem-title">Recover Binary Search Tree</td>
+    <td><a href="RecoverBinarySearchTree.java" target="_blank">RecoverBinarySearchTree.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">93</td>
+    <td class="problem-number">100</td>
+    <td class="problem-title">Same Tree</td>
+    <td><a href="SameTree.java" target="_blank">SameTree.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">94</td>
+    <td class="problem-number">101</td>
+    <td class="problem-title">Symmetric Tree</td>
+    <td><a href="SymmetricTree.java" target="_blank">SymmetricTree.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">95</td>
+    <td class="problem-number">102</td>
+    <td class="problem-title">Binary Tree Level Order Traversal</td>
+    <td><a href="BinaryTreeLevelOrderTraversal.java" target="_blank">BinaryTreeLevelOrderTraversal.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">96</td>
+    <td class="problem-number">103</td>
+    <td class="problem-title">Binary Tree Zigzag Level Order Traversal</td>
+    <td><a href="BinaryTreeZigzagLevelOrderTraversal.java" target="_blank">BinaryTreeZigzagLevelOrderTraversal.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">97</td>
+    <td class="problem-number">104</td>
+    <td class="problem-title">Maximum Depth Of Binary Tree</td>
+    <td><a href="MaximumDepthOfBinaryTree.java" target="_blank">MaximumDepthOfBinaryTree.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">98</td>
+    <td class="problem-number">105</td>
+    <td class="problem-title">Construct Binary Tree From Preorder And Inorder Traversal</td>
+    <td><a href="ConstructBinaryTreeFromPreorderAndInorderTraversal.java" target="_blank">ConstructBinaryTreeFromPreorderAndInorderTraversal.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">99</td>
+    <td class="problem-number">106</td>
+    <td class="problem-title">Construct Binary Tree From Inorder And Postorder Traversal</td>
+    <td><a href="ConstructBinaryTreeFromInorderAndPostorderTraversal.java" target="_blank">ConstructBinaryTreeFromInorderAndPostorderTraversal.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">100</td>
+    <td class="problem-number">107</td>
+    <td class="problem-title">Binary Tree Level Order Traversal II</td>
+    <td><a href="BinaryTreeLevelOrderTraversalII.java" target="_blank">BinaryTreeLevelOrderTraversalII.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">101</td>
+    <td class="problem-number">108</td>
+    <td class="problem-title">Convert Sorted Array To Binary Search Tree</td>
+    <td><a href="ConvertSortedArrayToBinarySearchTree.java" target="_blank">ConvertSortedArrayToBinarySearchTree.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">102</td>
+    <td class="problem-number">109</td>
+    <td class="problem-title">Convert Sorted List To Binary Search Tree</td>
+    <td><a href="ConvertSortedListToBinarySearchTree.java" target="_blank">ConvertSortedListToBinarySearchTree.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">103</td>
+    <td class="problem-number">110</td>
+    <td class="problem-title">Balanced Binary Tree</td>
+    <td><a href="BalancedBinaryTree.java" target="_blank">BalancedBinaryTree.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">104</td>
+    <td class="problem-number">111</td>
+    <td class="problem-title">Minimum Depth Of Binary Tree</td>
+    <td><a href="MinimumDepthOfBinaryTree.java" target="_blank">MinimumDepthOfBinaryTree.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">105</td>
+    <td class="problem-number">112</td>
+    <td class="problem-title">Path Sum</td>
+    <td><a href="PathSum.java" target="_blank">PathSum.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">106</td>
+    <td class="problem-number">113</td>
+    <td class="problem-title">Path Sum II</td>
+    <td><a href="PathSumII.java" target="_blank">PathSumII.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">107</td>
+    <td class="problem-number">114</td>
+    <td class="problem-title">Flatten Binary Tree To Linked List</td>
+    <td><a href="FlattenBinaryTreeToLinkedList.java" target="_blank">FlattenBinaryTreeToLinkedList.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">108</td>
+    <td class="problem-number">115</td>
+    <td class="problem-title">Distinct Subsequences</td>
+    <td><a href="DistinctSubsequences.java" target="_blank">DistinctSubsequences.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">109</td>
+    <td class="problem-number">116</td>
+    <td class="problem-title">Populating Next Right Pointers In Each Node</td>
+    <td><a href="PopulatingNextRightPointersInEachNode.java" target="_blank">PopulatingNextRightPointersInEachNode.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">110</td>
+    <td class="problem-number">117</td>
+    <td class="problem-title">Populating Next Right Pointers In Each Node II</td>
+    <td><a href="PopulatingNextRightPointersInEachNodeII.java" target="_blank">PopulatingNextRightPointersInEachNodeII.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">111</td>
+    <td class="problem-number">118</td>
+    <td class="problem-title">Pascals Triangle</td>
+    <td><a href="PascalsTriangle.java" target="_blank">PascalsTriangle.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">112</td>
+    <td class="problem-number">119</td>
+    <td class="problem-title">Pascals Triangle II</td>
+    <td><a href="PascalsTriangleII.java" target="_blank">PascalsTriangleII.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">113</td>
+    <td class="problem-number">120</td>
+    <td class="problem-title">Triangle</td>
+    <td><a href="Triangle.java" target="_blank">Triangle.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">114</td>
+    <td class="problem-number">121</td>
+    <td class="problem-title">Best Time To Buy And Sell Stock</td>
+    <td><a href="BestTimeToBuyAndSellStock.java" target="_blank">BestTimeToBuyAndSellStock.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">115</td>
+    <td class="problem-number">122</td>
+    <td class="problem-title">Best Time To Buy And Sell Stock II</td>
+    <td><a href="BestTimeToBuyAndSellStockII.java" target="_blank">BestTimeToBuyAndSellStockII.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">116</td>
+    <td class="problem-number">123</td>
+    <td class="problem-title">Best Time To Buy And Sell Stock III</td>
+    <td><a href="BestTimeToBuyAndSellStockIII.java" target="_blank">BestTimeToBuyAndSellStockIII.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">117</td>
+    <td class="problem-number">124</td>
+    <td class="problem-title">Binary Tree Maximum Path Sum</td>
+    <td><a href="BinaryTreeMaximumPathSum.java" target="_blank">BinaryTreeMaximumPathSum.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">118</td>
+    <td class="problem-number">125</td>
+    <td class="problem-title">Valid Palindrome</td>
+    <td><a href="ValidPalindrome.java" target="_blank">ValidPalindrome.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">119</td>
+    <td class="problem-number">126</td>
+    <td class="problem-title">Word Ladder II</td>
+    <td><a href="WordLadderII.java" target="_blank">WordLadderII.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">120</td>
+    <td class="problem-number">127</td>
+    <td class="problem-title">Word Ladder</td>
+    <td><a href="WordLadder.java" target="_blank">WordLadder.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">121</td>
+    <td class="problem-number">128</td>
+    <td class="problem-title">Longest Consecutive Sequence</td>
+    <td><a href="LongestConsecutiveSequence.java" target="_blank">LongestConsecutiveSequence.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">122</td>
+    <td class="problem-number">129</td>
+    <td class="problem-title">Sum Root To Leaf Numbers</td>
+    <td><a href="SumRootToLeafNumbers.java" target="_blank">SumRootToLeafNumbers.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">123</td>
+    <td class="problem-number">130</td>
+    <td class="problem-title">Surrounded Regions</td>
+    <td><a href="SurroundedRegions.java" target="_blank">SurroundedRegions.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">124</td>
+    <td class="problem-number">131</td>
+    <td class="problem-title">Palindrome Partitioning</td>
+    <td><a href="PalindromePartitioning.java" target="_blank">PalindromePartitioning.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">125</td>
+    <td class="problem-number">132</td>
+    <td class="problem-title">Palindrome Partitioning II</td>
+    <td><a href="PalindromePartitioningII.java" target="_blank">PalindromePartitioningII.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">126</td>
+    <td class="problem-number">133</td>
+    <td class="problem-title">Clone Graph</td>
+    <td><a href="CloneGraph.java" target="_blank">CloneGraph.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">127</td>
+    <td class="problem-number">134</td>
+    <td class="problem-title">Gas Station</td>
+    <td><a href="GasStation.java" target="_blank">GasStation.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">128</td>
+    <td class="problem-number">135</td>
+    <td class="problem-title">Candy</td>
+    <td><a href="Candy.java" target="_blank">Candy.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">129</td>
+    <td class="problem-number">136</td>
+    <td class="problem-title">Single Number</td>
+    <td><a href="SingleNumber.java" target="_blank">SingleNumber.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">130</td>
+    <td class="problem-number">137</td>
+    <td class="problem-title">Single Number II</td>
+    <td><a href="SingleNumberII.java" target="_blank">SingleNumberII.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">131</td>
+    <td class="problem-number">138</td>
+    <td class="problem-title">Copy List With Random Pointer</td>
+    <td><a href="CopyListWithRandomPointer.java" target="_blank">CopyListWithRandomPointer.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">132</td>
+    <td class="problem-number">139</td>
+    <td class="problem-title">Word Break</td>
+    <td><a href="WordBreak.java" target="_blank">WordBreak.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">133</td>
+    <td class="problem-number">140</td>
+    <td class="problem-title">Word Break II</td>
+    <td><a href="WordBreakII.java" target="_blank">WordBreakII.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">134</td>
+    <td class="problem-number">141</td>
+    <td class="problem-title">Linked List Cycle</td>
+    <td><a href="LinkedListCycle.java" target="_blank">LinkedListCycle.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">135</td>
+    <td class="problem-number">142</td>
+    <td class="problem-title">Linked List Cycle II</td>
+    <td><a href="LinkedListCycleII.java" target="_blank">LinkedListCycleII.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">136</td>
+    <td class="problem-number">143</td>
+    <td class="problem-title">Reorder List</td>
+    <td><a href="ReorderList.java" target="_blank">ReorderList.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">137</td>
+    <td class="problem-number">144</td>
+    <td class="problem-title">Binary Tree Preorder Traversal</td>
+    <td><a href="BinaryTreePreorderTraversal.java" target="_blank">BinaryTreePreorderTraversal.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">138</td>
+    <td class="problem-number">145</td>
+    <td class="problem-title">Binary Tree Postorder Traversal</td>
+    <td><a href="BinaryTreePostorderTraversal.java" target="_blank">BinaryTreePostorderTraversal.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">139</td>
+    <td class="problem-number">146</td>
+    <td class="problem-title">LRUCache</td>
+    <td><a href="LRUCache.java" target="_blank">LRUCache.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">140</td>
+    <td class="problem-number">147</td>
+    <td class="problem-title">Insertion Sort List</td>
+    <td><a href="InsertionSortList.java" target="_blank">InsertionSortList.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">141</td>
+    <td class="problem-number">148</td>
+    <td class="problem-title">Sort List</td>
+    <td><a href="SortList.java" target="_blank">SortList.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">142</td>
+    <td class="problem-number">149</td>
+    <td class="problem-title">Max Points On ALine</td>
+    <td><a href="MaxPointsOnALine.java" target="_blank">MaxPointsOnALine.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">143</td>
+    <td class="problem-number">150</td>
+    <td class="problem-title">Evaluate Reverse Polish Notation</td>
+    <td><a href="EvaluateReversePolishNotation.java" target="_blank">EvaluateReversePolishNotation.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">144</td>
+    <td class="problem-number">151</td>
+    <td class="problem-title">Reverse Words In AString</td>
+    <td><a href="ReverseWordsInAString.java" target="_blank">ReverseWordsInAString.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">145</td>
+    <td class="problem-number">152</td>
+    <td class="problem-title">Maximum Product Subarray</td>
+    <td><a href="MaximumProductSubarray.java" target="_blank">MaximumProductSubarray.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">146</td>
+    <td class="problem-number">153</td>
+    <td class="problem-title">Find Minimum In Rotated Sorted Array</td>
+    <td><a href="FindMinimumInRotatedSortedArray.java" target="_blank">FindMinimumInRotatedSortedArray.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">147</td>
+    <td class="problem-number">154</td>
+    <td class="problem-title">Find Minimum In Rotated Sorted Array II</td>
+    <td><a href="FindMinimumInRotatedSortedArrayII.java" target="_blank">FindMinimumInRotatedSortedArrayII.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">148</td>
+    <td class="problem-number">155</td>
+    <td class="problem-title">Min Stack</td>
+    <td><a href="MinStack.java" target="_blank">MinStack.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">149</td>
+    <td class="problem-number">156</td>
+    <td class="problem-title">Binary Tree Upside Down</td>
+    <td><a href="BinaryTreeUpsideDown.java" target="_blank">BinaryTreeUpsideDown.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">150</td>
+    <td class="problem-number">157</td>
+    <td class="problem-title">Read NCharacters Given Read4</td>
+    <td><a href="ReadNCharactersGivenRead4.java" target="_blank">ReadNCharactersGivenRead4.java</a></td>
+</tr>
+<tr>
+    <td class="seq-number">151</td>
+    <td class="problem-number">206</td>
+    <td class="problem-title">Reverse Linked List</td>
+    <td><a href="ReverseLinkedList.java" target="_blank">ReverseLinkedList.java</a></td>
+</tr>
+</tbody>
+            </table>
+        </div>
+
+        <div class="footer">
+            <p>Built with ❤️ for the LeetCode community</p>
+        </div>
+    </div>
+
+    <script>
+        // Search functionality
+        const searchBox = document.getElementById('searchBox');
+        const problemsTableBody = document.getElementById('problemsTableBody');
+        const totalProblemsSpan = document.getElementById('totalProblems');
+        const visibleProblemsSpan = document.getElementById('visibleProblems');
+        
+        const allRows = Array.from(problemsTableBody.querySelectorAll('tr'));
+        const totalProblems = allRows.length;
+        
+        totalProblemsSpan.textContent = `Total Problems: ${totalProblems}`;
+        
+        function filterProblems() {
+            const searchTerm = searchBox.value.toLowerCase().trim();
+            let visibleCount = 0;
+            
+            allRows.forEach(row => {
+                const problemNumber = row.querySelector('.problem-number').textContent;
+                const problemTitle = row.querySelector('.problem-title').textContent.toLowerCase();
+                
+                if (problemNumber.includes(searchTerm) || problemTitle.includes(searchTerm)) {
+                    row.style.display = '';
+                    visibleCount++;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+            
+            visibleProblemsSpan.textContent = `Visible Problems: ${visibleCount}`;
+        }
+        
+        searchBox.addEventListener('input', filterProblems);
+        
+        // Initialize visible count
+        filterProblems();
+        
+        // Add smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Add keyboard navigation
+        searchBox.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                searchBox.value = '';
+                filterProblems();
+            }
+        });
+    </script>
+</body>
+</html> 
